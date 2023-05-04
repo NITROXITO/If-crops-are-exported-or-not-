@@ -1,0 +1,58 @@
+#include <iostream>
+using namespace std;
+
+int main() {
+    int num_crops;
+    cout << "How many crops do you want to enter? ";
+    cin >> num_crops;
+
+    int crop_id[num_crops];
+    bool crop_exported[num_crops];
+    int stake_holders[num_crops][10];
+
+    for (int i = 0; i < num_crops; i++) {
+        cout << "Enter Crop ID #" << i+1 << ": ";
+        cin >> crop_id[i];
+
+        cout << "Is this crop exported? (1 for yes, 0 for no): ";
+        cin >> crop_exported[i];
+
+        if (crop_exported[i] == 1) {
+            int num_stake_holders;
+            cout << "How many stakeholders are involved in exporting this crop? (Maximum of 10): ";
+            cin >> num_stake_holders;
+
+            if (num_stake_holders > 10) {
+                num_stake_holders = 10;
+                cout << "Maximum stake holders allowed is 10. Only the first 10 will be considered." << endl;
+            }
+
+            for (int j = 0; j < num_stake_holders; j++) {
+                cout << "Enter stake holder #" << j+1 << " for crop ID #" << i+1 << ": ";
+                cin >> stake_holders[i][j];
+            }
+        }
+        else {
+            cout << "This crop is not exported. Moving on to the next crop." << endl;
+        }
+    }
+
+    cout << "Crop ID\tExported\tStake Holders" << endl;
+    for (int i = 0; i < num_crops; i++) {
+        cout << crop_id[i] << "\t";
+        if (crop_exported[i] == 1) {
+            cout << "Yes\t\t";
+            for (int j = 0; j < 10; j++) {
+                if (stake_holders[i][j] != 0) {
+                    cout << stake_holders[i][j] << " ";
+                }
+            }
+        }
+        else {
+            cout << "No\t\t-";
+        }
+        cout << endl;
+    }
+
+    return 0;
+}
